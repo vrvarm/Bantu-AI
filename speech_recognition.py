@@ -36,4 +36,3 @@ def speech_to_text(audio_file):
     except Exception as e:
         logging.error(f"Unexpected error: {str(e)}")
         return "Error: Boss, an unexpected error occurred. please try again. "
-
