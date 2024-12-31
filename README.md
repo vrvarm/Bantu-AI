@@ -10,3 +10,6 @@ GOAL: I will create an AI that uses my voice primarily as a security feature. Ad
  2) So far I was testing and I came across errors that are unknown to my knowledge of understanding. However, I was able to identify the error, which includes manually choosing an audio file. I found this un-acceptable as this was not the objective of using an AI. So I have asked co-pilot to assist me to automatically change audio files based on different questions asked by the user. Error Testing: FINISHED
 
  3) Today, I have coded a dynamic audio file that record multiple audio inputs without manually changing the path for a new audio file. Consequently, it created many errors that I wasn't able to identify and some not solvable. I am confused on how to resolve this and I might need help from a professional. I knew this project will be tough and take a lot of time, but it is worth it in the end. Dynamic Audio for Bantu AI and Error Fixing: UN-COMPLETE
+
+ 4) I have restarted this project but this time using a youtube video to assist me. the program works and I am making a lot progress compared to the initial stage of this project. However, I still need to make a lot of improvements to reach my goal. 
+ Working Model of Bantu AI: COMPLETED
