@@ -10,5 +10,5 @@ engine.setProperty('voices', voices[0].id)
 # command used to change text to speech
 def speak(audio):
     engine.say(audio)
-    print(audio)
+    print(f"Jarvis: {audio}")
     engine.runAndWait()

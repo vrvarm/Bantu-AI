@@ -13,3 +13,5 @@ GOAL: I will create an AI that uses my voice primarily as a security feature. Ad
 
  4) I have restarted this project but this time using a youtube video to assist me. the program works and I am making a lot progress compared to the initial stage of this project. However, I still need to make a lot of improvements to reach my goal. 
  Working Model of Bantu AI: COMPLETED
+
+ 5) So far, I have added comments on what other stuff I can do with jarvis, and mostly worked on opening a browser and connecting a pre-trained to jarvis AI. Also, I worked on error handling with these changes. Browser Machine and Pre-train Attachment: COMPLETED

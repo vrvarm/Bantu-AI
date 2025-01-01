@@ -1,5 +1,6 @@
 from text2speech import speak
 import speech_recognition as sr
+import tkinter as tk
 
 # function used to change speech to text
 def commands():
@@ -16,11 +17,11 @@ def commands():
         audio = r.listen(source)
     
     try: 
-        print("Wait for few minutes ...")
+        print("Wait for few minutes ...\n")
         query = r.recognize_google(audio, language = 'en-in')   # The recognizer is configured to 
                                                                 #understand the English language.
         print(f"Ravi: {query}\n")
-
+    
     except Exception as e:  #Captures errors 
         print(e)
         speak("I didn't hear you boss. Repeat what you said? ")
