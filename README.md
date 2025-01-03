@@ -11,7 +11,11 @@ GOAL: I will create an AI that uses my voice primarily as a security feature. Ad
 
  3) Today, I have coded a dynamic audio file that record multiple audio inputs without manually changing the path for a new audio file. Consequently, it created many errors that I wasn't able to identify and some not solvable. I am confused on how to resolve this and I might need help from a professional. I knew this project will be tough and take a lot of time, but it is worth it in the end. Dynamic Audio for Bantu AI and Error Fixing: UN-COMPLETE
 
- 4) I have restarted this project but this time using a youtube video to assist me. the program works and I am making a lot progress compared to the initial stage of this project. However, I still need to make a lot of improvements to reach my goal. 
+ 4) I have restarted this project, by deleting all the files attached to this project, but this time using a youtube video to assist me. the program works and I am making a lot progress compared to the initial stage of this project. However, I still need to make a lot of improvements to reach my goal. 
  Working Model of Bantu AI: COMPLETED
 
  5) So far, I have added comments on what other stuff I can do with jarvis, and mostly worked on opening a browser and connecting a pre-trained to jarvis AI. Also, I worked on error handling with these changes. Browser Machine and Pre-train Attachment: COMPLETED
+
+ 6) I have deleted some of the comments (ideas that will be used in the future of this project), and used another video as reference that shows a much neater and simplified version of jarvis ai. This video is taken as inspiration for this project and I have learned a lot about different files in python. 
+ Additional Commands: ADDED & COMPLETED
+
