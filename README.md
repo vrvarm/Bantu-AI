@@ -16,6 +16,6 @@ GOAL: I will create an AI that uses my voice primarily as a security feature. Ad
 
  5) So far, I have added comments on what other stuff I can do with jarvis, and mostly worked on opening a browser and connecting a pre-trained to jarvis AI. Also, I worked on error handling with these changes. Browser Machine and Pre-train Attachment: COMPLETED
 
- 6) I have deleted some of the comments (ideas that will be used in the future of this project), and used another video as reference that shows a much neater and simplified version of jarvis ai. This video is taken as inspiration for this project and I have learned a lot about different files in python. 
+ 6) I have deleted some of the unnecessary commands (ideas that will be used in the future of this project), and used another video as reference that shows a much neater and simplified version of jarvis ai. This video is taken as inspiration for this project and I have learned a lot about different files in python. 
  Additional Commands: ADDED & COMPLETED
 
