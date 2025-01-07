@@ -19,3 +19,5 @@ GOAL: I will create an AI that uses my voice primarily as a security feature. Ad
  6) I have deleted some of the unnecessary commands (ideas that will be used in the future of this project), and used another video as reference that shows a much neater and simplified version of jarvis ai. This video is taken as inspiration for this project and I have learned a lot about different files in python. 
  Additional Commands: ADDED & COMPLETED
 
+ 7) I added a function that tells me the latest news in USA before communicating with jarvis. Additionally, I modified it to convey the time and date today as well. All I have to do is modify it to tell the news based on the time and test. Additional Command (2): ADDED & COMPLETED
+

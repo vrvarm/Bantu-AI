@@ -12,3 +12,6 @@ def speak(audio):
     engine.say(audio)
     print(f"Jarvis: {audio}")
     engine.runAndWait()
+
+if __name__ == '__main__':
+    speak("Hello, I am Jarvis. How can I help you?")

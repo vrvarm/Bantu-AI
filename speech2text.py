@@ -16,7 +16,7 @@ def commands():
 
     with sr.Microphone() as source:
         print("listening...")
-        r.pause_threshold = 1
+        r.pause_threshold = 2
         r. adjust_for_ambient_noise (source, duration = 1)
         audio = r.listen(source)
     
@@ -34,8 +34,6 @@ def commands():
                 speak("have a great day, sir")
 
             exit()
-        else:
-            speak(random.choice(random_text))
     
     except Exception as e:  #Captures errors 
         print(e)
