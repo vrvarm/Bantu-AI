@@ -2,9 +2,9 @@ import datetime as dt
 import os
 #import subprocess as sp
 #import googlesearch
-import tkinter as tk
+#import tkinter as tk
 #import webbrowser
-import keyboard
+#import keyboard
 import random
 
 from conv import random_text
@@ -94,8 +94,8 @@ date()
 updates()
 
 
-keyboard.add_hotkey('ctrl + alt + z', start_listening)
-keyboard.add_hotkey('ctrl + alt + shift', stop_listening)
+#keyboard.add_hotkey('ctrl + alt + z', start_listening)
+#keyboard.add_hotkey('ctrl + alt + shift', stop_listening)
 
 while True:
     if listening:   #uses functions given above
@@ -199,18 +199,18 @@ while True:
             elif "news" in query:
                 speak(random.choice(random_text))
                 while True:
-                    country = region_check(text)
+                    country = region_check(query)
 
                     if None in country:
                         print("I don't have the region you specified sir")
                         continue
 
-                    num_articles = num_articles_check(text)
+                    num_articles = num_articles_check(query)
 
                     if None in num_articles:
                         continue
     
-                    if not given_text in text:
+                    if not given_text in query:
                         break
 
                     news(country, num_articles)
