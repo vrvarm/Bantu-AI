@@ -20,59 +20,6 @@ from paths import(
 
 RESPECT = 'sir'
 
-given_text = {
-    "how are you",
-    "i'm fine",
-    "good",
-    "good morning",
-    "good evening",
-    "what's the weather today",
-    "what's the news",
-    "what's the top news",
-    "how's the internet",
-    "open notepad",
-    "open chrome",
-    "open youtube",
-    "open gmail",
-    "open command prompt",
-    "what's the time",
-    "what's the date today",
-    "what's the weather",
-    "what's the news",
-    "what's the top news",
-    "what's the weather",
-    "what's the news",
-    "what's the top news",
-    "what's the weather",
-    "what's the news",
-}
-
-intro_text = [
-    "hello",
-    "hi",
-    "hey",
-    "howdy",
-    "hey jarvis",
-    "good morning jarvis",
-    "good evening jarvis",
-    "good afternoon jarvis"
-]
-
-agreeable_text = [
-    "fine",
-    "okay",
-    "alright"
-]
-
-exit_text = [
-    "bye",
-    "goodbye",
-    "see you later",
-    "have a great day",
-    "have a nice day",
-    "have a good night",
-    "mute jarvis"
-]
 
 #when a key combination is typed, it starts listening
 listening = False
@@ -168,7 +115,7 @@ while True:
                     searchBrowser(search)
 
 
-            elif " Youtube" in query:
+            elif "youtube" in query:
                 speak(random.choice(random_text))
                 speak(f"Opening google for you {RESPECT}...")
                 os.startfile(YOUTUBE)
@@ -210,7 +157,7 @@ while True:
                     if None in num_articles:
                         continue
     
-                    if not given_text in query:
+                    if not random_text in query:
                         break
 
                     news(country, num_articles)

@@ -1,0 +1,13 @@
+livekit-agents
+livekit-api
+livekit-plugins-openai
+flask
+flask-cors
+livekit-plugins-silero
+livekit-plugins-google
+livekit-plugins-noise-cancellation
+mem0ai
+duckduckgo-search
+langchain_community
+requests
+python-dotenv

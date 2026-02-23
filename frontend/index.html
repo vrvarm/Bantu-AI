@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bantu Voice Agent</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 420px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #0f0f12;
+      color: #e4e4e7;
+      min-height: 100vh;
+    }
+    h1 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+    p { color: #a1a1aa; font-size: 0.9rem; margin-bottom: 1.5rem; }
+    .status {
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+    .status.idle { background: #27272a; color: #a1a1aa; }
+    .status.connecting { background: #1e3a5f; color: #93c5fd; }
+    .status.connected { background: #14532d; color: #86efac; }
+    .status.error { background: #450a0a; color: #fca5a5; }
+    button {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      width: 100%;
+    }
+    button:hover { background: #2563eb; }
+    button:disabled { background: #52525b; cursor: not-allowed; }
+    #remote-audio { display: none; }
+    .hint { margin-top: 1rem; font-size: 0.8rem; color: #71717a; }
+  </style>
+</head>
+<body>
+  <h1>Bantu Voice Agent</h1>
+  <p>Connect to talk to Bantu. Allow microphone access when prompted.</p>
+  <div id="status" class="status idle">Click Connect to start.</div>
+  <button id="connectBtn" type="button">Connect</button>
+  <audio id="remote-audio" autoplay playsinline></audio>
+  <p class="hint">Keep Voice_Agent.py and the token server running. Use the same machine or set TOKEN_URL below.</p>
+
+  <script src="https://cdn.jsdelivr.net/npm/livekit-client@2/dist/livekit-client.umd.js"></script>
+  <script>
+    (function() {
+      const TOKEN_URL = 'http://localhost:5000/getToken';
+      const statusEl = document.getElementById('status');
+      const connectBtn = document.getElementById('connectBtn');
+      const remoteAudio = document.getElementById('remote-audio');
+
+      function setStatus(className, text) {
+        statusEl.className = 'status ' + className;
+        statusEl.textContent = text;
+      }
+
+      function setConnecting() {
+        setStatus('connecting', 'Connecting…');
+        connectBtn.disabled = true;
+      }
+
+      function setConnected() {
+        setStatus('connected', 'Connected. Speak to Bantu.');
+        connectBtn.textContent = 'Disconnect';
+        connectBtn.disabled = false;
+      }
+
+      function setIdle(text) {
+        setStatus('idle', text || 'Click Connect to start.');
+        connectBtn.textContent = 'Connect';
+        connectBtn.disabled = false;
+      }
+
+      function setError(msg) {
+        setStatus('error', msg);
+        connectBtn.textContent = 'Connect';
+        connectBtn.disabled = false;
+      }
+
+      const Room = window.LivekitClient?.Room || window.LivekitClient?.default?.Room;
+      const RoomEvent = window.LivekitClient?.RoomEvent || window.LivekitClient?.default?.RoomEvent;
+      const Track = window.LivekitClient?.Track || window.LivekitClient?.default?.Track;
+
+      if (!Room || !RoomEvent) {
+        setError('LiveKit client failed to load. Check console.');
+        console.error('LiveKit global:', window.LivekitClient);
+        return;
+      }
+
+      let room = null;
+
+      async function connect() {
+        if (room && room.state === 'connected') {
+          room.disconnect();
+          room = null;
+          setIdle('Disconnected.');
+          return;
+        }
+
+        setConnecting();
+        try {
+          const res = await fetch(TOKEN_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              room_name: 'bantu-room',
+              participant_identity: 'user-' + Math.random().toString(36).slice(2, 9),
+              participant_name: 'User'
+            })
+          });
+          if (!res.ok) {
+            const err = await res.json().catch(() => ({}));
+            throw new Error(err.error || 'Token request failed: ' + res.status);
+          }
+          const data = await res.json();
+          const { server_url, participant_token } = data;
+          if (!server_url || !participant_token) throw new Error('Invalid token response');
+
+          room = new Room({ autoSubscribe: true });
+          room.on(RoomEvent.TrackSubscribed, (track, publication, participant) => {
+            if (track.kind === Track.Kind.Audio) {
+              track.attach(remoteAudio);
+            }
+          });
+          room.on(RoomEvent.Disconnected, () => {
+            room = null;
+            setIdle('Disconnected.');
+          });
+          room.on(RoomEvent.MediaConnectionError, (err) => {
+            setError('Connection error: ' + (err && err.message ? err.message : 'unknown'));
+          });
+
+          await room.connect(server_url, participant_token);
+          await room.localParticipant.setMicrophoneEnabled(true);
+          setConnected();
+        } catch (e) {
+          setError(e.message || 'Connection failed');
+          console.error(e);
+        }
+      }
+
+      connectBtn.addEventListener('click', connect);
+    })();
+  </script>
+</body>
+</html>

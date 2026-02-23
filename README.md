@@ -21,3 +21,9 @@ GOAL: I will create an AI that uses my voice primarily as a security feature. Ad
 
  7) I added a function that tells me the latest news in USA before communicating with jarvis. Additionally, I modified it to convey the time and date today as well. All I have to do is modify it to tell the news based on the time and test. Additional Command (2): ADDED & COMPLETED
 
+---------------- Improving AI -----------------------------------------------------
+
+ 8) I am going to improve my project with using LiveKiy. Eventhough the program is running perfectly, I wasn't able to hear my agent's voice. Everything felt right, but I had some unknown issue I can't solve. So I asked AI and it is working on it to tell me what the issue is. Additionaly, I have deleted some python files so that I can build programs that are around LiveKit, since it acts like a workflow similar to n8n. Adding Code to Improve: COMPLETED 
+
+
+

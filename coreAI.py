@@ -12,6 +12,7 @@ import os
 import requests
 import pywhatkit as kit
 import datetime as dt
+
 from groq import Groq
 
 
@@ -39,14 +40,18 @@ def date():
     speak(f'Today is {strdate}')
 
 # function to handle the user's queries
-def reply_groqai(query):
+def groqai_AI_voice(audio):
     client = Groq(api_key = API_DATA_GROQAI)
     completion = client.chat.completions.create(
         model="gemma2-9b-it",
         messages=[
             {
-                "role": "user",
-                "content": query
+                "role": "system",   # This is the role of the system (Jarvis AI)
+                "content": "You are JARVIS, the artificial intelligence from Iron Man. You are intelligent, sophisticated, and always helpful. Respond in a professional and witty manner, similar to the character from the films."
+            },
+            {
+                "role": "user",     # This is my role in the system 
+                "content": audio
             },
         ],
         temperature=1,
@@ -66,7 +71,7 @@ def connectionCheck():
    try:
       response = requests.get('https://www.google.com')
       if response.status_code == 200:
-          return True
+            return True
       else:
           return False
    except requests.exceptions.RequestException:
