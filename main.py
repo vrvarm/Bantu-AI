@@ -157,7 +157,7 @@ while True:
                     if None in num_articles:
                         continue
     
-                    if not random_text in query:
+                    if not any(phrase in query for phrase in random_text):
                         break
 
                     news(country, num_articles)

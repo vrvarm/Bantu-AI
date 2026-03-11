@@ -26,4 +26,6 @@ GOAL: I will create an AI that uses my voice primarily as a security feature. Ad
  8) I am going to improve my project with using LiveKiy. Eventhough the program is running perfectly, I wasn't able to hear my agent's voice. Everything felt right, but I had some unknown issue I can't solve. So I asked AI and it is working on it to tell me what the issue is. Additionaly, I have deleted some python files so that I can build programs that are around LiveKit, since it acts like a workflow similar to n8n. Adding Code to Improve: COMPLETED 
 
 
-
+GOVT:
+    - Test 3: April 3rd
+    - Test 4: April 10th
