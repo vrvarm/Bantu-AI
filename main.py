@@ -8,8 +8,6 @@ import os
 import random
 
 from conv import random_text
-from text2speech import speak
-from speech2text import commands
 from coreAI import (
     wishings, time_today, date, updates, searchBrowser, start_command,
     region_check, num_articles_check, news
