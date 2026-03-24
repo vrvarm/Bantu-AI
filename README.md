@@ -1,31 +1,35 @@
 # Bantu_AI
  This is similar to Jarvis AI but operated only within the Bhaskara Raju Vathsavai's family
 
-GOAL: I will create an AI that uses my voice primarily as a security feature. Additionally, it will modified to only interact with the people you invite as part of the family, by signing in with your email. In the future, it will be shared to other families having it's own personality that fits its family.
+GOAL: I will create an AI that uses my voice primarily as a security feature. Additionally, it will be modified to only interact with the people you invite as part of the family, by signing in with your email. In the future, it will be shared with other families, each having its own personality that fits its family.
 
-    NOTE: I have used Microsoft Copilot to assist me in making this possible and I used its assistance most of the time because I didn't understand what most of the code did. I will promise that I using it only for learning purposes and nothing else. 
+    NOTE: I have used Microsoft Copilot to assist me in building this project. I have used it primarily as a learning tool to better understand the code, concepts, and implementation strategies involved in developing AI systems.
 
- 1) I have finished the basic structure of what the AI does and how it should react, but there is still more to finish as I uncover new ways to store my own voice as part of the recognition process. For this AI, I have used a pre-trained model known as DialoGPT-medium, which uses microsoft AI. Basic Structure: FINISHED
+ 1) I have finished the basic structure of how the AI behaves and responds to user input. I explored voice interaction and response handling while working with a pre-trained model, DialoGPT-medium (Microsoft AI).  
+ > Basic Structure: FINISHED
 
- 2) So far I was testing and I came across errors that are unknown to my knowledge of understanding. However, I was able to identify the error, which includes manually choosing an audio file. I found this un-acceptable as this was not the objective of using an AI. So I have asked co-pilot to assist me to automatically change audio files based on different questions asked by the user. Error Testing: FINISHED
+ 2) During testing, I encountered several issues related to handling audio inputs, particularly the need to manually select audio files. Since this did not align with the intended automation of the system, I explored solutions to dynamically switch audio inputs based on user queries.  
+ > Error Testing & Audio Handling Improvements: FINISHED
 
- 3) Today, I have coded a dynamic audio file that record multiple audio inputs without manually changing the path for a new audio file. Consequently, it created many errors that I wasn't able to identify and some not solvable. I am confused on how to resolve this and I might need help from a professional. I knew this project will be tough and take a lot of time, but it is worth it in the end. Dynamic Audio for Bantu AI and Error Fixing: UN-COMPLETE
+ 3) I implemented a dynamic audio recording system capable of handling multiple inputs without manually updating file paths. This introduced new technical challenges, including debugging complex errors and understanding system limitations. Further improvements are in progress.  
+ > Dynamic Audio & Error Handling: UN-COMPLETE
 
- 4) I have restarted this project, by deleting all the files attached to this project, but this time using a youtube video to assist me. the program works and I am making a lot progress compared to the initial stage of this project. However, I still need to make a lot of improvements to reach my goal. 
- Working Model of Bantu AI: COMPLETED
+ 4) I restarted the project with a cleaner approach using external learning resources (YouTube tutorials). This allowed me to rebuild the system more efficiently and achieve a working prototype with improved structure and understanding.  
+ > Working Model of Bantu AI: COMPLETED
 
- 5) So far, I have added comments on what other stuff I can do with jarvis, and mostly worked on opening a browser and connecting a pre-trained to jarvis AI. Also, I worked on error handling with these changes. Browser Machine and Pre-train Attachment: COMPLETED
+ 5) I expanded functionality by integrating browser automation and connecting pre-trained models more effectively. I also improved error handling and added modular components to the system.  
+ > Browser Integration & Model Connection: COMPLETED
 
- 6) I have deleted some of the unnecessary commands (ideas that will be used in the future of this project), and used another video as reference that shows a much neater and simplified version of jarvis ai. This video is taken as inspiration for this project and I have learned a lot about different files in python. 
- Additional Commands: ADDED & COMPLETED
+ 6) I refined the codebase by removing unnecessary commands and restructuring the project using a cleaner and more modular design inspired by improved implementations. This significantly improved readability and maintainability.  
+ > Code Optimization & Modular Design: COMPLETED
 
- 7) I added a function that tells me the latest news in USA before communicating with jarvis. Additionally, I modified it to convey the time and date today as well. All I have to do is modify it to tell the news based on the time and test. Additional Command (2): ADDED & COMPLETED
+ 7) I implemented a feature that retrieves and presents real-time news updates along with the current date and time. Future improvements include making responses more dynamic and context-aware based on time.  
+ > News & Time Feature Integration: COMPLETED
 
 ---------------- Improving AI -----------------------------------------------------
 
- 8) I am going to improve my project with using LiveKiy. Eventhough the program is running perfectly, I wasn't able to hear my agent's voice. Everything felt right, but I had some unknown issue I can't solve. So I asked AI and it is working on it to tell me what the issue is. Additionaly, I have deleted some python files so that I can build programs that are around LiveKit, since it acts like a workflow similar to n8n. Adding Code to Improve: COMPLETED 
+ 8) I began enhancing the system using LiveKit to support more advanced voice agent capabilities and real-time interaction. While the system runs successfully, I encountered issues with audio output that required deeper debugging and system-level investigation. I also restructured parts of the project to align with workflow-based architectures similar to tools like n8n.  
+ > Advanced Voice Agent Integration (LiveKit): COMPLETED
 
-
-GOVT:
-    - Test 3: April 3rd
-    - Test 4: April 10th
+ 9) I implemented a structured morning briefing system that delivers news, weather, calendar events, and task deadlines using a tool-based architecture. Additionally, I improved the voice system by making it interruptible, allowing the user to stop the AI mid-response and continue interaction seamlessly. This improves real-time usability and makes the assistant more dynamic and responsive. 
+ > Morning Briefing Tool & Interruptible Voice System: COMPLETED

@@ -11,34 +11,53 @@ NEWS_API_KEY = os.getenv("NEWS_API_DATA")
 if not NEWS_API_KEY:
     raise ValueError("Missing NEWS_API_KEY in environment variables.")
 
+# NEWS Tool 
 @function_tool(
-    description="Displays the number of News article titles based on the region and the number of articles given by the user.",
+    description="Get top news headlines for a region.",
     parameters={
         "type": "object",
         "properties":{
             "region":{"type":"string"},
-            "num_articles":{"type":"string"}
+            "num_articles":{"type":"integer"}
         },
-        "required":["region","num_articles"]
+        "required":["region"]
     }
 )
-def news(region, num_articles):
-    country = _region_check(region)
-    num_articles = _num_articles_check(num_articles)
 
-    news_url = f"https://newsapi.org/v2/top-headlines?country={country}&apiKey=" + NEWS_API_KEY
+def news(region, num_articles: int):
+    country = region_check(region)
+    num_articles = num_articles_check(num_articles)
+    
+    if not country:
+        country = "us" # fall back to the default Location
 
-    news = requests.get(news_url).json()
-    articles = news['articles']
+    news_url = f"https://newsapi.org/v2/top-headlines?country={country}&apiKey={NEWS_API_KEY}"
 
-    news_articles = []
-    for article in articles:
-        news_articles.append(article['title'])
+    try:
+        news = requests.get(news_url).json()
+        data = news.json()
 
-    for i in range(num_articles):
-        print(news_articles[i])
+        if data.get("status") != "ok":
+            return " Sorry, I couldn't fetch the news right now."
 
-def _region_check(text):
+        articles = data.get("articles", [])
+
+        if not articles:
+            return "No news articles found"
+
+        news_articles = min(num_articles, len(articles))
+        
+        headlines = [
+            f"{i + 1}. {articles[i]["title"]}"
+            for i in range(num_articles)
+        ]
+
+        return "\n".join(headlines)
+        
+    except Exception as e:
+        return f"Error fetching news: {str(e)}"
+
+def region_check(text):
     specific_word = {
         "us":"us",
         "germany":"de",
@@ -53,38 +72,17 @@ def _region_check(text):
         "default":"us"
     }
 
+    text = text.lower()
+
     for key in specific_word:
         if key in text:
-            country = specific_word[key]
-            break
+            return specific_word[key]
+            
     else:
-        return None
-    
-    return country
+        return "us"
 
-def _num_articles_check(text):
-
-    num_of_articles = {
-    'one': 1,
-    'two': 2,
-    'three': 3,
-    'four': 4,
-    'five': 5,
-    'six': 6,
-    'seven': 7,
-    'eight': 8,
-    'nine': 9,
-    'ten': 10,
-    'eleven': 11,
-    'twelve': 12,
-    'default': 5
-    }
-
-    for num in num_of_articles:
-        if num in text:
-            num_articles = num_of_articles[num]
-            break
-    else:
-        num_articles = text
-
-    return num_articles
+def num_articles_check(num: int):
+    try:
+        return num
+    except:
+        return 5

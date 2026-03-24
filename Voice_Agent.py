@@ -1,13 +1,19 @@
+
+#TODO - Add a clock for saying Morning Brief
+#TODO - use threading in your project 
+
 import pyttsx3
 import speech_recognition as sr
 import datetime as dt
 import json
 import re
+import threading
 from conv import exit_text
 
 from groq import Groq
 from prompts import AGENT_INSTRUCTION, SESSION_INSTRUCTION
 from config import GROQ_API_KEY
+
 
 # ── MCP Tool Definitions ──────────────────────────────────────────────────────
 # Add / remove tools here as your MCP server expands.
@@ -125,33 +131,37 @@ class Voice_Agent:
     
     speaking = False
 
-    def _speak(self, audio: str):
+    def _speak(audio: str):
         """Convert text to speech using pyttsx3 (sapi5)."""
-        global speaking
-        global engine
+
         # Strip markdown / special characters so TTS sounds natural
         clean = re.sub(r"[*_#`>~]", "", audio).strip()
         print(f"\nBantu: {clean}\n")
+        
+        # Split into sentences, which allows interruption between chuncks
+        sentences = re.split(r'(?<=[.!?]) +', clean)
 
-        speaking = True 
+        Voice_Agent.speaking = True 
+        for sentence in sentences:
+            if not Voice_Agent.speaking:
+                break # conversation interrupted
 
-        engine.say(clean)
-        engine.runAndWait()
+            Voice_Agent.engine.say(clean)
+            Voice_Agent.engine.runAndWait()
 
 
-        speaking = False
+        Voice_Agent.speaking = False
 
     def _stop_speaking():
-        global speaking
-        if speaking:
-            engine.stop()
-            speaking = False
+        if Voice_Agent.speaking:
+            Voice_Agent.engine.stop()
+            Voice_Agent.speaking = False
 
     # ── STT ───────────────────────────────────────────────────────────────────
-    def _commands(self):
+    def _commands():
         """Capture microphone input and return a text query."""
         
-        Voice_Agent.stop_speaking()
+        Voice_Agent._stop_speaking()
         
         r = sr.Recognizer()
 
@@ -159,7 +169,7 @@ class Voice_Agent:
             print("Listening...")
             r.pause_threshold = 1.0               #TODO - edit the Threshold of the AI Listening
             r.adjust_for_ambient_noise(source, duration=1)
-            audio = r.listen(source, timeout=None)
+            audio = r.listen(source, timeout=1, phrase_time_limit=5)
 
         try:
             print("Processing...\n")
@@ -170,20 +180,20 @@ class Voice_Agent:
             if any(re.search(pattern, query.lower()) for pattern in exit_text):
                 hour = dt.datetime.now().hour
                 if hour >= 20 or hour < 6:
-                    Voice_Agent.speak("Good night, sir. Do try to rest — you've earned it.")
+                    Voice_Agent._speak("Good night, sir. Do try to rest — you've earned it.")
                 else:
-                    Voice_Agent.speak("Have a splendid day, sir. Try not to get into too much trouble.")
+                    Voice_Agent._speak("Have a splendid day, sir. Try not to get into too much trouble.")
                 exit()
 
         except Exception as e:
             print(f"STT Error: {e}")
-            Voice_Agent.speak("My sincerest apologies, sir — I didn't quite catch that. Could you repeat yourself?")
+            Voice_Agent._speak("My sincerest apologies, sir — I didn't quite catch that. Could you repeat your?")
             query = "none"
 
         return query
 
     # ── LLM (Groq + MCP tool loop) ────────────────────────────────────────────
-    def _reply_groqai(self, query: str):
+    def _reply_groqai(query: str):
         """Send query to Groq, handle any MCP tool calls, and return final answer."""
 
         client = Groq(api_key=GROQ_API_KEY)
@@ -236,26 +246,26 @@ class Voice_Agent:
             # Loop again so the model can formulate its final reply
 
     # ── Main STT → LLM → TTS loop ─────────────────────────────────────────────
-    def run(self):
-        """Start Bantu: greet, then enter the continuous listen-think-speak loop."""
+    def run():
+        """Start Bantu: greet, then enter the continuous listen-think-_speak loop."""
 
         # Opening greeting (SESSION_INSTRUCTION drives the content)
-        greeting = Voice_Agent.reply_groqai("Begin the session with your introduction.")
-        Voice_Agent.speak(greeting)
+        greeting = Voice_Agent._reply_groqai("Begin the session with your introduction.")
+        Voice_Agent._speak(greeting)
 
         try:
             while True:
-                query = Voice_Agent.commands()
+                query = Voice_Agent._commands()
 
                 if query == "none":
                     continue
 
-                answer = Voice_Agent.reply_groqai(query)
-                Voice_Agent.speak(answer)
+                answer = Voice_Agent._reply_groqai(query)
+                Voice_Agent._speak(answer)
                 
         except KeyboardInterrupt:
             print("\nSystem Shutting Down...")
-            Voice_Agent.speak("System shutting down")
+            Voice_Agent._speak("System shutting down")
 
 
 # ── Entry point ───────────────────────────────────────────────────────────────
